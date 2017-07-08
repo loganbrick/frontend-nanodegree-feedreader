@@ -109,7 +109,7 @@ $(function() {
          */
 
         beforeEach(function(done) {
-            // check that the feed has finished loading before each test
+            // Check that the feed has finished loading before each test
             // since it is asynchronous
             loadFeed(0, done);
         });
@@ -119,10 +119,34 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    /* Done--TODO: Write a new test suite named "New Feed Selection" */
 
-        /* TODO: Write a test that ensures when a new feed is loaded
+    describe('New Feed Selection', function() {
+
+        /* Done--TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+        var feedEntry1,
+            feedEntry2;
+
+        beforeEach(function(done) {
+            // Load a feed and save its entry for comparison later
+            loadFeed(0, function() {
+                feedEntry1=$('.feed').html();
+                // Now call the next feed to save the new entry
+                loadFeed(1, function() {
+                    feedEntry2=$('.feed').html();
+                    done();
+                });
+            });
+        });
+
+        it('has new entries', function() {
+            // Compare the two entries
+            expect(feedEntry1).not.toEqual(feedEntry2);
+        });
+
+     });
 }());
